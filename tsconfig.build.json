@@ -1,0 +1,8 @@
+{
+    "files": [],
+    "references": [
+        { "path": "packages/plugins" },
+        { "path": "packages/signer" },
+        { "path": "packages/verifier" }
+    ]
+}
