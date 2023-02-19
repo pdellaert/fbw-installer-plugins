@@ -1,9 +1,9 @@
-import fs from 'fs';
 import { join } from 'path';
-import { getInstallerPlugins } from 'fbw-installer-plugins-plugins';
+import { getInstallerPlugins, getAssetsDetails } from 'fbw-installer-plugins-plugins';
 import { KeyManagementServiceClient } from '@google-cloud/kms';
 import crypto from 'crypto';
 import fastCrc32c from 'fast-crc32c';
+import fs from 'fs';
 import Logger from './lib/logger';
 
 const projectId = process.env.GCLOUD_PROJECT || '';
@@ -39,7 +39,10 @@ if (!fs.existsSync(join(__dirname, 'plugins'))) {
 }
 
 plugins.forEach(async (plugin) => {
-    const data = JSON.stringify(plugin);
+    const data = JSON.stringify({
+        plugin,
+        assetsDetails: await getAssetsDetails(plugin),
+    });
     const hashBuilder = crypto.createHash('sha256');
     hashBuilder.update(data);
     const dataDigest = hashBuilder.digest();

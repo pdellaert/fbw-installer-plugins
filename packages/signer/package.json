@@ -10,8 +10,8 @@
     "dependencies": {
         "@elastic/ecs-winston-format": "^1.3.1",
         "@google-cloud/kms": "^3.2.0",
-        "@types/node": "^18.11.18",
         "@types/fast-crc32c": "^2.0.0",
+        "@types/node": "^18.14.0",
         "fast-crc32c": "^2.0.0",
         "fbw-installer-plugins-plugins": "*",
         "winston": "^3.8.2"
