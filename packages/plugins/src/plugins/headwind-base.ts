@@ -1,6 +1,6 @@
 import { InstallerPlugin } from '../lib/installerPlugin';
 
-export const headwindInstallerPlugin: InstallerPlugin = {
+export const headwindBasePlugin: InstallerPlugin = {
     originUrl: 'https://cdn.flybywiresim.com/installer/plugin-test',
     metadata: {
         id: 'headwind-base',
