@@ -4,7 +4,7 @@
     "id": "headwind-base",
     "author": "Headwind Simulations",
     "name": "Headwind Simulations",
-    "description": "Adds Headwind Simulations aircraft to the FlyByWire Installer",
+    "description": "Adds the Headwind Simulations aircraft to the FlyByWire Installer",
     "version": "v1.0.0",
     "iconFile": "https://raw.githubusercontent.com/headwind-msfs/branding/main/logos/Headwind.svg"
   },
@@ -14,5 +14,5 @@
       "file": "headwind-config.json"
     }
   ],
-  "signature": "MEUCIC3s+eTt3VWT2WstbjKK8xs7xeQAC/VxT5HMis0LfHvfAiEA403Fllyskh3zoVC8c1MZ3BkMpIB+LcVvZkrXUe4oQdM="
+  "signature": "MEYCIQCIGS+Oi+0KhINIEHNwoWRwfc1PbQONynLWX925aShjvgIhALuBIIpzc/v3448qkHL2DgTYBzC4tUqHtGW9IRMBUlnp"
 }
