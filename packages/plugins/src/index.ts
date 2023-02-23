@@ -1,7 +1,9 @@
 import fetch from 'cross-fetch';
 import Logger from './lib/logger';
-import { InstallerPlugin } from './lib/installerPlugin';
+import * as lib from './lib/installerPlugin';
 import { headwindBasePlugin } from './plugins/headwind-base';
+
+export type InstallerPlugin = lib.InstallerPlugin;
 
 export function getInstallerPlugins():InstallerPlugin[] {
     const plugins = [
