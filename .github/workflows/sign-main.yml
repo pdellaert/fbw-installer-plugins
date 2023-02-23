@@ -1,0 +1,54 @@
+name: sign-main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_sign_and_push:
+    # Prevent running this on forks
+    if: github.repository_owner == 'pdellaert'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with: 
+          fetch-depth: 2
+      - name: Get changed plugins to sign
+        run: |
+          to_sign_plugins=$(git diff --name-only HEAD^ HEAD -- packages/plugins/src/plugins/ | xargs -n1 basename | sed 's/\.[^.]*$//' | tr '\n' ' ')
+          echo "to_sign_plugins=${to_sign_plugins}" >> $GITHUB_ENV
+      - name: Run npm install
+        if: ${{ env.to_sign_plugins != '' }}
+        run: |
+          npm ci
+      - name: Build packages
+        if: ${{ env.to_sign_plugins != '' }}
+        run: |
+          npm run build
+      - name: Execute signer to sign the plugins
+        if: ${{ env.to_sign_plugins != '' }}
+        env:
+          GCLOUD_CLIENT_EMAIL: ${{ secrets.GCLOUD_CLIENT_EMAIL }}
+          GCLOUD_KEY: ${{ secrets.GCLOUD_KEY }}
+          GCLOUD_KEYRING: ${{ secrets.GCLOUD_KEYRING }}
+          GCLOUD_KEY_VERSION: ${{ secrets.GCLOUD_KEY_VERSION }}
+          GCLOUD_LOCATION: ${{ secrets.GCLOUD_LOCATION }}
+          GCLOUD_PRIVATE_KEY: ${{ secrets.GCLOUD_PRIVATE_KEY }}
+          GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
+          PLUGIN_PUBLIC_KEY: ${{ secrets.PLUGIN_PUBLIC_KEY }}
+          NODE_ENV: production
+        run: node packages/signer/dist/index.js -p ${{ env.to_sign_plugins }}
+      - name: Copy plugins to folder
+        if: ${{ env.to_sign_plugins != '' }}
+        run: |
+          mkdir -p plugins
+          cp packages/signer/dist/plugins/*.json plugins/
+      - name: Commit and push new plugins
+        if: ${{ env.to_sign_plugins != '' }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: plugins
+          message: Adding plugins for commit ${{ github.sha }}
+          committer_name: Github Actions
+          committer_email: actions@github.com
