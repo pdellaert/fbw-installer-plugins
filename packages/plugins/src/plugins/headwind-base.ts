@@ -6,7 +6,7 @@ export const headwindBasePlugin: InstallerPlugin = {
         id: 'headwind-base',
         author: 'Headwind Simulations',
         name: 'Headwind Simulations',
-        description: 'Adds Headwind Simulations aircraft to the FlyByWire Installer',
+        description: 'Adds the Headwind Simulations aircraft to the FlyByWire Installer',
         version: 'v1.0.0',
         iconFile: 'https://raw.githubusercontent.com/headwind-msfs/branding/main/logos/Headwind.svg',
     },
